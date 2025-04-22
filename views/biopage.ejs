@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Retro Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #e0e0e0;
+      color: #000080;
+    }
+
+    .nav-container {
+      margin-top: 80px; /* Push navigation below your header */
+      background-color: #01010b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: flex-start; /* Push buttons to the left */
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-container button {
+      background-color: white;
+      color: #000080;
+      border: 2px dashed #000080; /* Rounded dotted border */
+      border-radius: 8px; /* Rounded corners for all buttons */
+      padding: 10px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-container button:hover {
+      background-color: #4b0082;
+      color: white;
+    }
+
+    /* Styling for the "Starline" button with rounded dotted border */
+    .nav-container button.starline {
+      border: 2px dashed #FFD700; /* Gold border */
+      color: #000080; /* Gold color */
+      padding: 12px 18px;
+      box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700; /* Glowing effect */
+      background: linear-gradient(to right, #FFD700, #FF8C00); /* Gradient background */
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Starline hover effect with more styling */
+    .nav-container button.starline:hover {
+      background: linear-gradient(to right, #FF8C00, #FFD700); /* Reverse gradient on hover */
+      color: #000080; /* Change text color to blue on hover */
+      box-shadow: 0 0 15px #FF6347, 0 0 25px #FF6347, 0 0 35px #FF6347; /* Red glow effect on hover */
+      transform: scale(1.1); /* Slightly enlarge button */
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 30px;
+      box-shadow: 5px 5px 0 #000080;
+      border: 2px dashed #000080;
+    }
+
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    /* Box inside container for Starline Update */
+    .update-box {
+      background-color: #f5f5f5;
+      padding: 20px;
+      margin-top: 20px;
+      border: 2px dashed #FFD700;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .update-box h2 {
+      color: #4b0082;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .update-box p {
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-container">
+    <button onclick="location.href='/'">Home</button>
+    <button onclick="location.href='/projects'">Git/Projects</button>
+    <button class="starline" onclick="location.href='/starline'">Starline</button> <!-- Decorative Starline Button -->
+    <button onclick="location.href='/contact'">Contact Me</button>
+  </div>
+
+  <div class="container">
+    <!-- Starline Update Box -->
+    <div class="update-box">
+      <h2>Update: Starline Hosting Service Launch!</h2>
+      <p>
+        Starline is a cutting-edge hosting service designed for developers who want an all-in-one solution to host and manage their applications. With powerful integrations like **Google Gemini AI** for intelligent performance monitoring and advanced **Git integration**, Starline offers seamless deployment, real-time analytics, and full-stack hosting for modern applications.
+      </p>
+      <p>
+        Starline makes it easier for new developers to host their projects without worrying about complex configurations. The service also includes automated scaling, monitoring packages, and easy integration with popular developer tools, making it a perfect choice for anyone looking to streamline their web app's hosting.
+      </p>
+      <p>
+        Stay tuned for more updates and features as we continue to innovate and improve Starline into the best hosting solution available!
+      </p>
+    </div>
+  </div>
+</body>
+</html>

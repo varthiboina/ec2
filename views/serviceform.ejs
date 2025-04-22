@@ -1,0 +1,162 @@
+<head>
+    <link rel="stylesheet" href="/index.css"> <!-- Correct path to the CSS file -->
+  </head>
+  <style>
+    body {
+  background-color: #c9c9c9;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #000080;
+  margin: 0;
+}
+
+.form-box {
+  background-color: #ffffff;
+  border: 2px dashed #000080;
+  padding: 30px;
+  box-shadow: 5px 5px 0 #000080;
+  width: 400px;
+  text-align: left;
+}
+
+.form-box h2 {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.form-box label,
+.form-box input,
+.form-box select {
+  width: 100%;
+  display: block;
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  padding: 8px;
+  border: 1px solid #000080;
+  background-color: #e6e6fa;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #000080;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #4b0082;
+}
+    </style>
+<h2>Service Form</h2>
+<form id="serviceForm">
+  <label>Service Name: <input type="text" name="serviceName" required></label><br><br>
+
+  <label>Protocol Type:
+    <select name="protocol">
+      <option value="HTTP">HTTP</option>
+      <option value="HTTPS">HTTPS</option>
+      <option value="SSH">SSH</option>  <!-- Fixed typo here -->
+    </select>
+  </label><br><br>
+
+  <label>Port Number:
+    <input type="number" name="port" min="1" max="65535" required>
+  </label><br><br>
+
+  <label>Instance Type:
+    <select name="instanceType">
+      <option value="Basic">Basic</option>
+      <option value="High Traffic">High Traffic</option>
+      <option value="Very High Traffic">Very High Traffic</option>
+      <option value="Computation Intensive">Computation Intensive</option>
+    </select>
+  </label><br><br>
+
+  <label>Regions (hold Ctrl to select multiple):
+    <select name="regions" multiple required>
+      <option value="USA">USA</option>
+      <option value="UK">UK</option>
+      <option value="Germany">Germany</option>
+      <option value="India">India</option>
+      <option value="Japan">Japan</option>
+    </select>
+  </label><br><br>
+
+  <label>Number of Instances (1–5):
+    <input type="number" name="instances" min="1" max="5" required>
+  </label><br><br>
+
+  <label>
+    <input type="checkbox" name="inEachRegion" checked>
+    Run in each region (uncheck to run independently)
+  </label><br><br>
+
+  <label>
+    <input type="checkbox" name="autoScaling" id="autoScaling">
+    Enable Auto Scaling Group
+  </label><br><br>
+
+  <div id="scalingLevelSection" style="display:none;">
+    <label>Scaling Level:
+      <select name="scalingLevel">
+        <option value="Basic">Basic</option>
+        <option value="Moderate">Moderate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+    </label><br><br>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  const form = document.getElementById('serviceForm');
+  const scalingCheckbox = document.getElementById('autoScaling');
+  const scalingSection = document.getElementById('scalingLevelSection');
+
+  scalingCheckbox.addEventListener('change', () => {
+    scalingSection.style.display = scalingCheckbox.checked ? 'block' : 'none';
+  });
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const data = {
+      instanceName: form.serviceName.value,
+      protocol: form.protocol.value,
+      port: parseInt(form.port.value),
+      instanceType: form.instanceType.value,
+      regions: Array.from(form.regions.selectedOptions).map(opt => opt.value),
+      instances: parseInt(form.instances.value),
+      inEachRegion: form.inEachRegion.checked,
+      autoScaling: scalingCheckbox.checked,
+      scalingLevel: scalingCheckbox.checked ? form.scalingLevel.value : null
+    };
+
+    const response = await  fetch('http://localhost:3006/deploy-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+    alert(JSON.stringify(result, null, 2));
+    document.cookie = "formData=" + JSON.stringify(result) + "; path=/; domain=localhost; SameSite=None; Secure=false";
+    window.location.href = 'http://localhost:3000/';
+
+  });
+</script>
